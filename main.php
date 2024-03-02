@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML>
     <HEAD>
-        <TITLE>DBMS</TITLE>
+        <TITLE>DB</TITLE>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Pragma" content="no-cache">
@@ -20,10 +20,10 @@
     </HEAD>
     <BODY onload="showClock('<?=session_cache_expire()?>')">
         <?php
-        if(!@$jb_login ) {?>
+        if(!$jb_login ) {?>
         <div style = "display: flex; justify-content: center">
             <form action = "main.php" method = 'post' name = 'logcont'>
-                <h1 style = "align-items:center; margin-top: 0px">MODU DBMS UI</h1>
+                <h1 style = "align-items:center; margin-top: 0px">DB UI</h1>
                 <?
                 if(isset($msg)){?>
                     <div style = "text-align:center; color: red; background: white; font-weight: bold; font-size: 14px"><?=$msg?></div><?
@@ -42,11 +42,11 @@
         }
         else {
             $dbid = sprintf("db%s", $id);
-            $sqlid = sprintf("sql%s", $id); 
+            $sqlid = sprintf("%s", $id); 
             ?>
             <div class = 'whole'>
                 <div style = "display: flex; justify-content: center; align-items: center">
-                    <h1>MODU DBMS [<?=$id?>]</h1>
+                    <h1>DB [<?=$id?>]</h1>
                 </div>
                 <div style = "width: 100%; ">
                     
@@ -117,6 +117,7 @@
         ?>
         <SCRIPT>
             function on_login(){
+                document.logcont.svalue.value = false;
                 document.logcont.submit();
             }
             function on_logout(){
@@ -445,7 +446,7 @@
                 $('#select_foreign_table').empty();
                 $('#select_not_foreign_column').empty();
                 $('#select_this_foreign_column').empty();
-                    var obj = {'sqlUser': '<?=$sqlid?>', 'dbPasswd':'<?=$password?>', 'dbUser':'<?=$dbid?>', 'tableName':tableName};
+                    var obj = {'dbUser': '<?=$sqlid?>', 'dbPasswd':'<?=$password?>', 'dbName':'<?=$dbid?>', 'tableName':tableName};
                     dbParam = JSON.stringify(obj); xmlhttp1 = new XMLHttpRequest();
                     xmlhttp1.onreadystatechange = function() {
                         if(xmlhttp1.readyState == 4 && xmlhttp1.status == 200) {
@@ -463,7 +464,7 @@
                     xmlhttp1.send();
 
                     var result2 = [];
-                    var obj = {'sqlUser': '<?=$sqlid?>', 'dbPasswd':'<?=$password?>', 'dbUser':'<?=$dbid?>', 'tableName':tableName};
+                    var obj = {'dbUser': '<?=$sqlid?>', 'dbPasswd':'<?=$password?>', 'dbName':'<?=$dbid?>', 'tableName':tableName};
                     dbParam = JSON.stringify(obj); 
                     xmlhttp2 = new XMLHttpRequest();
                     xmlhttp2.onreadystatechange = function() {
@@ -482,7 +483,7 @@
 
                     var result3 = [];
                     var foreignTable = "";
-                    var obj = {'sqlUser': '<?=$sqlid?>', 'dbPasswd':'<?=$password?>', 'dbUser':'<?=$dbid?>', 'tableName':tableName};
+                    var obj = {'dbUser': '<?=$sqlid?>', 'dbPasswd':'<?=$password?>', 'dbName':'<?=$dbid?>', 'tableName':tableName};
                     dbParam = JSON.stringify(obj); 
                     xmlhttp3 = new XMLHttpRequest();
                     xmlhttp3.onreadystatechange = function() {
@@ -532,7 +533,7 @@
                         }                      
                     }
                 };
-                xmlhttp4.open('GET', './sql/findColumns.php?x=' + dbParam, true); 
+                xmlhttp4.open('GET', './sql/findColumn.php?x=' + dbParam, true); 
                 xmlhttp4.send();
             }
             function onFindTableColumns() {

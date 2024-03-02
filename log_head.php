@@ -4,10 +4,11 @@
     header("Cache-Control:no-cache");
     session_name("loginfo");
     session_start();
+   // $svalue = 9999;
 
     isset($_REQUEST['svalue']) && $svalue = $_REQUEST['svalue'];
     
-    if( @$svalue ){
+    if($svalue ){
       setCookie('loginfo', '', time()-2000, '/');
       $_SESSION = array();
       $id = ""; $password = "";
@@ -29,11 +30,12 @@
         $jb_login = true;
       }
       
-      if(@$jb_login){
+      if($jb_login){
         $dbid = sprintf("db%s", $id);
-        $sqlid = sprintf("sql%s", $id);
+        $sqlid = sprintf("%s", $id);
         try{
-          $conn = mysqli_connect("localhost", $sqlid, $password, $dbid);
+		$conn = mysqli_connect("localhost", $sqlid, $password, $dbid);
+		//throw new Exception("DB login failed", 1);
         }
         catch(Exception $e){
           $msg = "아이디 또는 비밀번호를 확인하세요.";
@@ -41,7 +43,9 @@
           $_SESSION = array();
           session_unset();
           session_destroy();
-          $jb_login = false;
+	  $jb_login = false;
+	  //$s = $e->getMessage();
+	  //echo $s;
         }
       }
     }
