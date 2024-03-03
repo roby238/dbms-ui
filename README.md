@@ -31,17 +31,17 @@ git clone https://github.com/roby238/dbms-ui.git
 2. Install php, php8.2-mysql extension and php8.2-pdo extension.
 
 3. Set user and password in Mysql.
-  * password should NOT consist of '@'. It is a delimeter in system. 
+   * password should NOT consist of '@'. It is a delimeter in system. 
 
-4. Make DB. And DB name must be 'db' + user.
+5. Make DB. And DB name must be 'db' + user.
 
-5. Run php server with Apache2.
-  * refer to given php.ini file for setting php. Modify /etc/php/8.2/apache2/php.ini.
-    ```shell
-    # Modify php.ini.
-    cd /etc/php/8.2/apache2
-    cp /home/[user]/dbms-ui/php.ini .
-    ```
+6. Run php server with Apache2.
+   * refer to given php.ini file for setting php. Modify /etc/php/8.2/apache2/php.ini.
+     ```shell
+     # Modify php.ini.
+     cd /etc/php/8.2/apache2
+     cp /home/[user]/dbms-ui/php.ini .
+     ```
 
 
 
